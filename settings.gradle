@@ -1,1 +1,6 @@
 rootProject.name = 'datapoa'
+
+include 'business'
+include 'persistence'
+include 'resource'
+
