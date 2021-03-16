@@ -8,6 +8,7 @@ dependencies {
     implementation project(':persistence')
     implementation project(':business')
     implementation project(':resource')
+    implementation project(':integration')
 }
 
 
@@ -51,6 +52,6 @@ allprojects {
             mavenBom("org.springframework.boot:spring-boot-dependencies:2.4.0")
         }
     }
-}       
+}
 
 
