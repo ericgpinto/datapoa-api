@@ -21,9 +21,7 @@ public class LineService {
 
     public List<Line> getAllLines() throws JsonProcessingException {
         String json = lineClient.getAllLines();
-        return Arrays.asList(objectMapper.readValue(json, Line[].class));
+        var line =  Arrays.asList(objectMapper.readValue(json, Line[].class));
+        return lineRepository.saveAll(line);
     }
-
-
-
 }
