@@ -1,4 +1,4 @@
-rootProject.name = 'datapoa'
+rootProject.name = 'datapoa-api'
 
 include 'business'
 include 'persistence'
