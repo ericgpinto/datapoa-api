@@ -29,4 +29,22 @@ public class LineService {
     public Line getLineById(String id) {
         return lineRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Linha não encontrada"));
     }
+
+    public Line createLine(Line line) {
+        return lineRepository.insert(line);
+    }
+
+    public void delete(String id) {
+        getLineById(id);
+        lineRepository.deleteById(id);
+    }
+
+    public Line update(String id, Line line) {
+        var objUser = getLineById(id);
+        objUser.setId(line.getId());
+        objUser.setCode(line.getCode());
+        objUser.setName(line.getName());
+
+        return lineRepository.save(line);
+    }
 }

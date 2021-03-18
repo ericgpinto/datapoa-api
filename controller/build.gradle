@@ -2,4 +2,5 @@ dependencies {
     implementation project(':persistence')
     implementation project(':business')
     implementation project(':integration')
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.3'
 }
