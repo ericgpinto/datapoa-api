@@ -1,6 +1,7 @@
 package com.ericpinto.datapoa.resource;
 
 import com.ericpinto.datapoa.model.Line;
+import com.ericpinto.datapoa.resource.util.URL;
 import com.ericpinto.datapoa.service.ItineraryService;
 import com.ericpinto.datapoa.service.LineService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -35,6 +36,13 @@ public class LineController {
     @GetMapping(value = "/{id}")
     public Line getLineById(@PathVariable String id){
         return lineService.getLineById(id);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/namesearch")
+    public List<Line> findByName(@RequestParam(value="name", defaultValue="") String name) {
+        name = URL.decodeParam(name);
+        return lineService.findLineByName(name);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

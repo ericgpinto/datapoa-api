@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -25,6 +26,7 @@ public class LineService {
         var line =  Arrays.asList(objectMapper.readValue(json, Line[].class));
         return lineRepository.saveAll(line);
     }
+
 
     public Line getLineById(String id) {
         return lineRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Linha não encontrada"));
@@ -46,5 +48,14 @@ public class LineService {
         objUser.setName(line.getName());
 
         return lineRepository.save(line);
+    }
+
+    public List<Line> findLineByName(String name) {
+        var result = lineRepository.findByNameContainingIgnoreCase(name);
+        if (result.isEmpty()){
+            throw new ObjectNotFoundException("Não foi possivel encontrar uma linha com o nome informado.");
+        }
+        else
+            return result;
     }
 }
