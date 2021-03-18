@@ -23,31 +23,25 @@ public class RestResource {
 //    @PostMapping(value = "lines/create")
 //    public Line createLine(){}
 
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    @DeleteMapping(value = "lines/delete")
-//    public void delete(@PathVariable String id){}
-
-//    @ResponseStatus(HttpStatus.OK)
-//    @GetMapping(value = "/lines/update")
-//    public Line updateLine(@PathVariable String id){}
-
-
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/lines")
     public List<Line> findAllLines() throws JsonProcessingException {
         return lineService.getAllLines();
     }
 
-//    @ResponseStatus(HttpStatus.OK)
-//    @GetMapping(value = "/lines/{id}")
-//    public Line getLineById(@PathVariable String id){
-//        return lineService.getLineById(id);
-//    }
-
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = ("/itinerary"))
-    public Itinerary getItineraryByLine(@RequestParam(value = "p") String id) throws JsonProcessingException {
-        return itineraryService.getItineraryByLine(id);
+    @GetMapping(value = "/lines/{id}")
+    public Line getLineById(@PathVariable String id){
+        return lineService.getLineById(id);
     }
+
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    @DeleteMapping(value = "lines/delete")
+//    public void delete(@PathVariable String id){}
+//
+//    @ResponseStatus(HttpStatus.OK)
+//    @PutMapping(value = "/lines/update")
+//    public Line updateLine(@PathVariable String id){}
+
 
 }

@@ -3,6 +3,7 @@ package com.ericpinto.datapoa.service;
 import com.ericpinto.datapoa.client.LineClient;
 import com.ericpinto.datapoa.model.Line;
 import com.ericpinto.datapoa.repository.LineRepository;
+import com.ericpinto.datapoa.service.exceptions.ObjectNotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ public class LineService {
         return lineRepository.saveAll(line);
     }
 
-//    public Line getLineById(String id) {
-//        return lineRepository.findById(id).orElseThrow(() -> )
-//    }
+    public Line getLineById(String id) {
+        return lineRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Linha não encontrada"));
+    }
 }
