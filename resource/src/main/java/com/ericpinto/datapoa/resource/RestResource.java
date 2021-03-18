@@ -1,15 +1,13 @@
 package com.ericpinto.datapoa.resource;
 
+import com.ericpinto.datapoa.model.Itinerary;
 import com.ericpinto.datapoa.model.Line;
+import com.ericpinto.datapoa.service.ItineraryService;
 import com.ericpinto.datapoa.service.LineService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +17,20 @@ import java.util.List;
 public class RestResource {
 
     private final LineService lineService;
+    private final ItineraryService itineraryService;
+
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @PostMapping(value = "lines/create")
+//    public Line createLine(){}
+
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    @DeleteMapping(value = "lines/delete")
+//    public void delete(@PathVariable String id){}
+
+//    @ResponseStatus(HttpStatus.OK)
+//    @GetMapping(value = "/lines/update")
+//    public Line updateLine(@PathVariable String id){}
+
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/lines")
@@ -26,5 +38,16 @@ public class RestResource {
         return lineService.getAllLines();
     }
 
+//    @ResponseStatus(HttpStatus.OK)
+//    @GetMapping(value = "/lines/{id}")
+//    public Line getLineById(@PathVariable String id){
+//        return lineService.getLineById(id);
+//    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = ("/itinerary"))
+    public Itinerary getItineraryByLine(@RequestParam(value = "p") String id) throws JsonProcessingException {
+        return itineraryService.getItineraryByLine(id);
+    }
 
 }

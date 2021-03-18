@@ -24,4 +24,8 @@ public class LineService {
         var line =  Arrays.asList(objectMapper.readValue(json, Line[].class));
         return lineRepository.saveAll(line);
     }
+
+//    public Line getLineById(String id) {
+//        return lineRepository.findById(id).orElseThrow(() -> )
+//    }
 }

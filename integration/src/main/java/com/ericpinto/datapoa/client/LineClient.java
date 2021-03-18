@@ -11,4 +11,5 @@ public interface LineClient {
 
     @GetMapping(value =  "?a=nc&p=%&t=o")
     String getAllLines();
+
 }
