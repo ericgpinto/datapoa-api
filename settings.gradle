@@ -2,6 +2,6 @@ rootProject.name = 'datapoa-api'
 
 include 'business'
 include 'persistence'
-include 'resource'
+include 'controller'
 include 'integration'
 

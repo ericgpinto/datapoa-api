@@ -7,7 +7,7 @@ plugins {
 dependencies {
     implementation project(':persistence')
     implementation project(':business')
-    implementation project(':resource')
+    implementation project(':controller')
     implementation project(':integration')
 }
 
