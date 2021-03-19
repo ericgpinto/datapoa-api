@@ -1,6 +1,6 @@
 package com.ericpinto.datapoa.service;
 
-import com.ericpinto.datapoa.client.impl.LineClientImpl;
+import com.ericpinto.datapoa.client.util.LineClientUtils;
 import com.ericpinto.datapoa.model.Line;
 import com.ericpinto.datapoa.repository.LineRepository;
 import com.ericpinto.datapoa.service.exceptions.ObjectNotFoundException;
@@ -15,12 +15,12 @@ import java.util.List;
 public class LineService {
 
     private final LineRepository lineRepository;
-    private final LineClientImpl lineClient;
+    private final LineClientUtils lineClientUtils;
 
     public List<Line> getAllLines() throws JsonProcessingException {
-        var lines = lineClient.getAllLines();
+        var lines = lineClientUtils.getAllLines();
         if (lineRepository.count() == 0)
-            return lineRepository.saveAll(lineClient.getAllLines());
+            return lineRepository.saveAll(lines);
         else
             return lines;
     }

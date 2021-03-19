@@ -1,4 +1,4 @@
-package com.ericpinto.datapoa.client.impl;
+package com.ericpinto.datapoa.client.util;
 
 import com.ericpinto.datapoa.client.LineClient;
 import com.ericpinto.datapoa.model.Line;
@@ -12,11 +12,10 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class LineClientImpl  {
-
-    private final ObjectMapper objectMapper;
+public class LineClientUtils {
 
     private final LineClient lineClient;
+    private final ObjectMapper objectMapper;
 
     public List<Line> getAllLines() throws JsonProcessingException {
         String json = lineClient.getAllLines();

@@ -27,7 +27,7 @@ public class Itinerary {
     @NotNull(message = "Id is required")
     private String id;
 
-    @JsonProperty("idLinha")
+    @JsonProperty("idlinha")
     private String idLine;
 
     @JsonProperty("codigo")
