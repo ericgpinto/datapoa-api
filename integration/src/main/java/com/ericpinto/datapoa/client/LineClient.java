@@ -1,5 +1,6 @@
 package com.ericpinto.datapoa.client;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.encoding.FeignClientEncodingProperties;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface LineClient {
 
     @GetMapping(value =  "?a=nc&p=%&t=o")
-    String getAllLines();
+    String getAllLines() throws JsonProcessingException;
 
 }

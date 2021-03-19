@@ -1,32 +1,29 @@
 package com.ericpinto.datapoa.service;
 
-import com.ericpinto.datapoa.client.LineClient;
+import com.ericpinto.datapoa.client.impl.LineClientImpl;
 import com.ericpinto.datapoa.model.Line;
 import com.ericpinto.datapoa.repository.LineRepository;
 import com.ericpinto.datapoa.service.exceptions.ObjectNotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class LineService {
 
     private final LineRepository lineRepository;
-    private final LineClient lineClient;
-    private final ObjectMapper objectMapper;
+    private final LineClientImpl lineClient;
 
     public List<Line> getAllLines() throws JsonProcessingException {
-        String json = lineClient.getAllLines();
-        var line =  Arrays.asList(objectMapper.readValue(json, Line[].class));
-        return lineRepository.saveAll(line);
+        var lines = lineClient.getAllLines();
+        if (lineRepository.count() == 0)
+            return lineRepository.saveAll(lineClient.getAllLines());
+        else
+            return lines;
     }
-
 
     public Line getLineById(String id) {
         return lineRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Linha não encontrada"));
