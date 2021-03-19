@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class ItineraryController {
 
-    private ItineraryService itineraryService;
+    private final ItineraryService itineraryService;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping()

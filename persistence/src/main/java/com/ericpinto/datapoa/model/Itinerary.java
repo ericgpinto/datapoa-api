@@ -24,9 +24,6 @@ import java.util.Map;
 public class Itinerary {
 
     @Id
-    @NotNull(message = "Id is required")
-    private String id;
-
     @JsonProperty("idlinha")
     private String idLine;
 
