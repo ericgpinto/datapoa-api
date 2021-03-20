@@ -6,6 +6,8 @@ import com.ericpinto.datapoa.repository.LineRepository;
 import com.ericpinto.datapoa.service.exceptions.ObjectNotFoundException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +28,10 @@ public class LineService {
             return lines;
     }
 
+    public Page<Line> findAll(Pageable pageable) {
+        return lineRepository.findAll(pageable);
+    }
+
     public Line getLineById(String id) {
         return lineRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Linha não encontrada"));
     }
@@ -35,11 +41,16 @@ public class LineService {
     }
 
     public Line createLine(Line line) {
-        Optional<Line> optionalLine = lineRepository.findById(line.getIdLine());
-        if (optionalLine.isPresent())
-            return update(line.getIdentifier(), line);
-        else
+
+        var verifyLine = getIdLine(line.getIdLine());
+
+        if (verifyLine == null){
             return lineRepository.insert(line);
+        }
+        else {
+            line.setIdentifier(verifyLine.getIdentifier());
+            return update(verifyLine.getIdentifier(), line);
+        }
     }
 
     public void delete(String id) {

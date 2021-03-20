@@ -26,17 +26,6 @@ public class ItineraryController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/find-all")
-    public Page<Line> findAll(
-            @RequestParam(required = false, defaultValue = "1") Integer page,
-            @RequestParam(required = false, defaultValue = "10") Integer size
-    ) {
-        Pageable pageable;
-        pageable = PageRequest.of(page, size, Sort.by(Sort.Order.asc("_id")));
-        return itineraryService.findAll(pageable);
-    }
-
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "{id}")
     public Itinerary findById(@PathVariable String id){
         return itineraryService.findById(id);

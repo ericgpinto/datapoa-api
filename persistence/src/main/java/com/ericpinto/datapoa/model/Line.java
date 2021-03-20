@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 public class Line {
 
     @Id
-    @NotNull(message = "Identifier is required")
+    //@NotNull(message = "Identifier is required")
     private String identifier;
 
     @JsonProperty("id")

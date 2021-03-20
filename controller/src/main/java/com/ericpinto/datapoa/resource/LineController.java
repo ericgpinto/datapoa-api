@@ -6,6 +6,10 @@ import com.ericpinto.datapoa.service.ItineraryService;
 import com.ericpinto.datapoa.service.LineService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,9 +31,20 @@ public class LineController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping
+    @GetMapping(value = "/callback")
     public List<Line> findAllLines() throws JsonProcessingException {
         return lineService.getAllLines();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/find-all")
+    public Page<Line> findAll(
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "10") Integer size
+    ) {
+        Pageable pageable;
+        pageable = PageRequest.of(page, size, Sort.by(Sort.Order.asc("_id")));
+        return lineService.findAll(pageable);
     }
 
     @ResponseStatus(HttpStatus.OK)

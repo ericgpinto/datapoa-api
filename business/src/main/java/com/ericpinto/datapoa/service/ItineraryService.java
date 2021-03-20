@@ -38,10 +38,6 @@ public class ItineraryService {
         }
     }
 
-    public Page<Line> findAll(Pageable pageable) {
-        return lineRepository.findAll(pageable);
-    }
-
     public Itinerary findById(String id){
         return itineraryRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Itinerario não encontrado"));
     }
