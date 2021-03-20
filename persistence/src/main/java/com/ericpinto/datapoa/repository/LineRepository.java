@@ -11,4 +11,6 @@ public interface LineRepository extends MongoRepository<Line, String> {
 
     List<Line> findByNameContainingIgnoreCase(String name);
 
+    Line findByIdLine(String idLine);
+
 }

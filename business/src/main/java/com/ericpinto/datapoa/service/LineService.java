@@ -30,10 +30,14 @@ public class LineService {
         return lineRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Linha não encontrada"));
     }
 
+    public Line getIdLine(String idLine){
+        return lineRepository.findByIdLine(idLine);
+    }
+
     public Line createLine(Line line) {
-        Optional<Line> optionalLine = lineRepository.findById(line.getId());
+        Optional<Line> optionalLine = lineRepository.findById(line.getIdLine());
         if (optionalLine.isPresent())
-            return update(line.getId(), line);
+            return update(line.getIdentifier(), line);
         else
             return lineRepository.insert(line);
     }
@@ -45,7 +49,7 @@ public class LineService {
 
     public Line update(String id, Line line) {
         var objUser = getLineById(id);
-        objUser.setId(line.getId());
+        objUser.setIdentifier(line.getIdentifier());
         objUser.setCode(line.getCode());
         objUser.setName(line.getName());
 

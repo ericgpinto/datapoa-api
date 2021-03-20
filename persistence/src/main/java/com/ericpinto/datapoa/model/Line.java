@@ -17,9 +17,12 @@ import javax.validation.constraints.NotNull;
 public class Line {
 
     @Id
+    @NotNull(message = "Identifier is required")
+    private String identifier;
+
     @JsonProperty("id")
-    @NotNull(message = "Id is required")
-    private String id;
+    @NotNull(message = "Line id is required")
+    private String idLine;
 
     @JsonProperty("codigo")
     @NotNull(message = "Code is required")
