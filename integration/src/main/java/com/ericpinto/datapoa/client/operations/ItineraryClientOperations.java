@@ -1,4 +1,4 @@
-package com.ericpinto.datapoa.client.util;
+package com.ericpinto.datapoa.client.operations;
 
 import com.ericpinto.datapoa.client.ItineraryClient;
 import com.ericpinto.datapoa.model.Itinerary;
@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class ItineraryClientUtils {
+public class ItineraryClientOperations {
     private final ItineraryClient itineraryClient;
     private final ObjectMapper objectMapper;
 
-    public Itinerary getItineraryByLine(String id) throws JsonProcessingException {
+    public Itinerary mapStringToJson(String id) throws JsonProcessingException {
         String json = itineraryClient.getItineraryByLine(id);
         return objectMapper.readValue(json, Itinerary.class);
     }
