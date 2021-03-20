@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -30,7 +31,11 @@ public class LineService {
     }
 
     public Line createLine(Line line) {
-        return lineRepository.insert(line);
+        Optional<Line> optionalLine = lineRepository.findById(line.getId());
+        if (optionalLine.isPresent())
+            return update(line.getId(), line);
+        else
+            return lineRepository.insert(line);
     }
 
     public void delete(String id) {

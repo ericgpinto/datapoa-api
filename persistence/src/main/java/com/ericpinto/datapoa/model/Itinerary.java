@@ -3,12 +3,14 @@ package com.ericpinto.datapoa.model;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
@@ -21,19 +23,15 @@ import java.util.Map;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+
+@JsonIgnoreProperties({"idlinha", "nome", "codigo"})
 public class Itinerary {
 
     @Id
-    @JsonProperty("idlinha")
-    private String idLine;
+    private String id;
 
-    @JsonProperty("codigo")
-    @NotNull(message = "Id is required")
-    private String code;
-
-    @JsonProperty("nome")
-    @NotNull(message = "name is required")
-    private String name;
+    @DBRef
+    private Line line;
 
     private Map<String, Coordinates> cordinatesDetails = new HashMap<>();
 
