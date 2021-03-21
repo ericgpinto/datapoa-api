@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class ItineraryClientOperations {
-    private final ItineraryClient itineraryClient;
+
     private final ObjectMapper objectMapper;
+    private final ItineraryClient itineraryClient;
 
     public Itinerary mapStringToJson(String id) throws JsonProcessingException {
-        String json = itineraryClient.getItineraryByLine(id);
-        return objectMapper.readValue(json, Itinerary.class);
+        String request = itineraryClient.getItineraryByLine(id);
+        return objectMapper.readValue(request, Itinerary.class);
     }
+
 }

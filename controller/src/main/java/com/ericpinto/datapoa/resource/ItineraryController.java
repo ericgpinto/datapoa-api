@@ -1,7 +1,9 @@
 package com.ericpinto.datapoa.resource;
 
+import com.ericpinto.datapoa.client.operations.ItineraryClientOperations;
 import com.ericpinto.datapoa.model.Itinerary;
 import com.ericpinto.datapoa.model.Line;
+import com.ericpinto.datapoa.model.dto.ItineraryDTO;
 import com.ericpinto.datapoa.service.ItineraryService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class ItineraryController {
 
     private final ItineraryService itineraryService;
+    private final ItineraryClientOperations itineraryClientOperations;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/callback")

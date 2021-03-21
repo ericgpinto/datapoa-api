@@ -1,64 +1,26 @@
 package com.ericpinto.datapoa.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ericpinto.datapoa.model.Coordinates;
+import com.ericpinto.datapoa.model.Itinerary;
+import com.ericpinto.datapoa.model.Line;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+@Data
 public class ItineraryDTO {
 
-    @JsonProperty("idlinha")
-    private String idLine;
+    @Id
+    private String id;
 
-    @JsonProperty("codigo")
-    private String code;
+    @DBRef
+    private Line line;
 
-    @JsonProperty("nome")
-    private String name;
+    private Map<String, Coordinates> cordinatesDetails = new HashMap<>();
 
-    @JsonAnySetter
-    private Map<String, CoordinatesDTO> cordinatesDetails = new HashMap<>();
-
-    public String getIdLine() {
-        return idLine;
-    }
-
-    public void setIdLine(String idLine) {
-        this.idLine = idLine;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Map<String, CoordinatesDTO> getCordinatesDetails() {
-        return cordinatesDetails;
-    }
-
-    public void setCordinatesDetails(Map<String, CoordinatesDTO> cordinatesDetails) {
-        this.cordinatesDetails = cordinatesDetails;
-    }
-
-    @Override
-    public String toString() {
-        return "ItineraryDTO{" +
-                "idLine='" + idLine + '\'' +
-                ", code='" + code + '\'' +
-                ", name='" + name + '\'' +
-                ", cordinatesDetails=" + cordinatesDetails +
-                '}';
-    }
 }

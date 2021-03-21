@@ -1,5 +1,6 @@
 package com.ericpinto.datapoa.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,10 +15,10 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Line {
 
     @Id
-    //@NotNull(message = "Identifier is required")
     private String identifier;
 
     @JsonProperty("id")
