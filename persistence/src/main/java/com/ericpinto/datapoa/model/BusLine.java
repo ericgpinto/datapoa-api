@@ -23,18 +23,18 @@ import java.util.List;
 public class BusLine {
 
     @Id
-    private String identity;
+    private String id;
 
-    @JsonProperty("id")
+//    @JsonProperty("id")
     private String line;
 
-    @JsonProperty("codigo")
+//    @JsonProperty("codigo")
     private String code;
 
-    @JsonProperty("nome")
+//    @JsonProperty("nome")
     private String name;
 
-    @JsonProperty("busStop")
+//    @JsonProperty("busStop")
     private List<BusStop> busStop;
 
 }

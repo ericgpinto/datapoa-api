@@ -38,7 +38,15 @@ public class BusLineService {
         if (find == null)
             throw new ObjectNotFoundException("Linha não encontrada");
         else
-            return update(find.getIdentity(), response, id);
+            return update(find.getId(), response, id);
+    }
+
+    public List<BusLine> findLineByLocationNear(Double longitude, Double latitude, Double radius){
+        var response =  busLineRepository.findByLocationNear(longitude, latitude, radius);
+        if (response == null){
+            throw new ObjectNotFoundException("Não foram encontradas linhas dentro do raio informado");
+        }
+        else return response;
     }
 
     public BusLine update(String id, BusLine busLine, String idLine){

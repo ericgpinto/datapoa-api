@@ -28,4 +28,14 @@ public class BusLineController {
         return busLineService.getLineWithItinerary(id);
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/radiussearch/{radius}")
+    public List<BusLine> findLineByLocationNear(
+            @RequestParam(value = "lgn") Double longitude,
+            @RequestParam(value = "lat") Double latitude,
+            @PathVariable Double radius){
+
+        return busLineService.findLineByLocationNear(longitude, latitude, radius);
+    }
+
 }
