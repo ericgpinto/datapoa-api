@@ -1,11 +1,11 @@
-package com.ericpinto.datapoa.model;
+package com.ericpinto.datapoa.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-
 @Data
-public class Coordinates {
+public class CoordenatesDTO {
+
     @JsonProperty("lat")
     private String lat;
     @JsonProperty("lng")

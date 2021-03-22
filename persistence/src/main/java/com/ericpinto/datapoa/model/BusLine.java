@@ -1,5 +1,6 @@
 package com.ericpinto.datapoa.model;
 
+import com.ericpinto.datapoa.model.dto.BusLineDTO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -9,29 +10,31 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotNull;
+import java.util.List;
 
-@Document(collection = "lines")
+@Document(collection = "buslines")
 
-@Data
 @Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Line {
+
+public class BusLine {
 
     @Id
-    private String identifier;
+    private String identity;
 
     @JsonProperty("id")
-    @NotNull(message = "Line id is required")
-    private String idLine;
+    private String line;
 
     @JsonProperty("codigo")
-    @NotNull(message = "Code is required")
     private String code;
 
     @JsonProperty("nome")
-    @NotNull(message = "Name is required")
     private String name;
+
+    @JsonProperty("busStop")
+    private List<BusStop> busStop;
+
 }
