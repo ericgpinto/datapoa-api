@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -41,13 +42,17 @@ public class BusLineService {
             return update(find.getId(), response, id);
     }
 
-    public List<BusLine> findLineByLocationNear(Double longitude, Double latitude, Double radius){
-        var response =  busLineRepository.findByLocationNear(longitude, latitude, radius);
-        if (response == null){
-            throw new ObjectNotFoundException("Não foram encontradas linhas dentro do raio informado");
-        }
-        else return response;
+    public List<BusLine> getLineByName(String name){
+        return busLineRepository.findByNameContainingIgnoreCase(name);
     }
+
+//    public List<BusLine> findLineByLocationNear(Double longitude, Double latitude, Double radius){
+//        var response =  busLineRepository.findByLocationNear(longitude, latitude, radius);
+//        if (response == null){
+//            throw new ObjectNotFoundException("Não foram encontradas linhas dentro do raio informado");
+//        }
+//        else return response;
+//    }
 
     public BusLine update(String id, BusLine busLine, String idLine){
         BusLine obj = findById(id);

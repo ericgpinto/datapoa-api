@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public interface BusLineRepository extends MongoRepository<BusLine, String> {
 
+    List<BusLine> findByNameContainingIgnoreCase(String name);
+
     BusLine findByLine(String line);
 
 //    @Query("{'busStop.coordenates' :{ $near : [ ?1 , ?2], $maxDistance: ?3*1000}}")

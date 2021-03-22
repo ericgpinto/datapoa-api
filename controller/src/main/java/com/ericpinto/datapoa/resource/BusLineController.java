@@ -29,13 +29,19 @@ public class BusLineController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/radiussearch/{radius}")
-    public List<BusLine> findLineByLocationNear(
-            @RequestParam(value = "lgn") Double longitude,
-            @RequestParam(value = "lat") Double latitude,
-            @PathVariable Double radius){
-
-        return busLineService.findLineByLocationNear(longitude, latitude, radius);
+    @GetMapping("namesearch")
+    public List<BusLine> getLineByName(@RequestParam(value = "name") String name){
+        return busLineService.getLineByName(name);
     }
+
+//    @ResponseStatus(HttpStatus.OK)
+//    @GetMapping("/radiussearch/{radius}")
+//    public List<BusLine> findLineByLocationNear(
+//            @RequestParam(value = "lgn") Double longitude,
+//            @RequestParam(value = "lat") Double latitude,
+//            @PathVariable Double radius){
+//
+//        return busLineService.findLineByLocationNear(longitude, latitude, radius);
+//    }
 
 }
