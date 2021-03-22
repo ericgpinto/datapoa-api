@@ -1,6 +1,9 @@
 package com.ericpinto.datapoa.repository;
 
 import com.ericpinto.datapoa.model.BusLine;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoResults;
+import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,6 +17,10 @@ public interface BusLineRepository extends MongoRepository<BusLine, String> {
 
     BusLine findByLine(String line);
 
-//    @Query("{'busStop.coordenates' :{ $near : [ ?1 , ?2], $maxDistance: ?3*1000}}")
-//    List<BusLine> findByLocationNear(Double longitude, Double latitude, Double radius);
+//    @Query("{location : {$geoWithin : {$center: [ [point.x, point.y], distance]}}}")
+//    List<BusLine> getBusStopByLocationNear(Point location, Distance distance);
+//
+//    GeoResults<BusLine> findByCoordenatesWithin(Point location, Distance distance);
+
+    List<BusLine> findByCoordenatesNear(Point location, Distance distance);
 }

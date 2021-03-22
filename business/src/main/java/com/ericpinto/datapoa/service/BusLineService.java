@@ -7,6 +7,11 @@ import com.ericpinto.datapoa.service.exceptions.ObjectNotFoundException;
 import com.ericpinto.datapoa.service.mapper.BusLinesMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.Metrics;
+import org.springframework.data.geo.Point;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.index.GeospatialIndex;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,60 +24,77 @@ public class BusLineService {
     private final BusLineRepository busLineRepository;
     private final BusLinesOperations busLinesOperations;
     private final BusLinesMapper busLinesMapper;
+    private final MongoTemplate template;
 
     public List<BusLine> getAllBusLines() throws JsonProcessingException {
         var response = busLinesOperations.getAllLines();
         var mapper = busLinesMapper.maptoBusLine(response);
 
-        if (busLineRepository.count() == 0){
+        if (busLineRepository.count() == 0) {
             return busLineRepository.saveAll(mapper);
-        }
-        else
+        } else
             return this.findAll();
     }
 
     public BusLine getLineWithItinerary(String id) throws JsonProcessingException {
         var response = busLinesOperations.getLineWithItinerary(id);
-
         var find = busLineRepository.findByLine(id);
+        Optional<BusLine> lineOptional = Optional.ofNullable(find);
 
-        if (find == null)
-            throw new ObjectNotFoundException("Linha não encontrada");
-        else
-            return update(find.getId(), response, id);
+        if (lineOptional.isPresent())
+            return update(find.getId(), response);
+        throw new ObjectNotFoundException("Linha não encontrada");
     }
 
-    public List<BusLine> getLineByName(String name){
+    public List<BusLine> getLineByName(String name) {
         return busLineRepository.findByNameContainingIgnoreCase(name);
     }
 
-//    public List<BusLine> findLineByLocationNear(Double longitude, Double latitude, Double radius){
-//        var response =  busLineRepository.findByLocationNear(longitude, latitude, radius);
-//        if (response == null){
-//            throw new ObjectNotFoundException("Não foram encontradas linhas dentro do raio informado");
-//        }
-//        else return response;
-//    }
+    public List<BusLine> findByCoordenatesWithin(Double longitude, Double latitude, Double radius){
+        Point point = new Point(longitude, latitude);
+        Distance distance = new Distance(radius, Metrics.KILOMETERS);
+        return busLineRepository.findByCoordenatesNear(point, distance);
+    }
 
-    public BusLine update(String id, BusLine busLine, String idLine){
+    public BusLine createNewBusLine(BusLine busLine) {
+        var find = busLineRepository.findByLine(busLine.getLine());
+
+        Optional<BusLine> optionalBusLine = Optional.ofNullable(find);
+
+        if (optionalBusLine.isPresent()) {
+            return update(find.getId(), busLine);
+        }
+
+        return busLineRepository.insert(busLine);
+    }
+
+//    public BusLine createItineraryToLine(BusLine)
+
+    public BusLine update(String id, BusLine busLine) {
         BusLine obj = findById(id);
 
         obj.setLine(busLine.getLine());
         obj.setCode(busLine.getCode());
         obj.setName(busLine.getName());
+        obj.setIndex(busLine.getIndex());
+        obj.setCoordenates(busLine.getCoordenates());
         obj.setBusStop(busLine.getBusStop());
 
         return busLineRepository.save(obj);
-
     }
 
-
-    public List<BusLine> findAll(){
+    public List<BusLine> findAll() {
         return busLineRepository.findAll();
     }
 
-    public BusLine findById(String id){
+    public BusLine findById(String id) {
         return busLineRepository.findById(id)
-                .orElseThrow(()-> new ObjectNotFoundException("Linha de onibus não encontrada"));
+                .orElseThrow(() -> new ObjectNotFoundException("Linha de onibus não encontrada"));
     }
+
+    public void delete(String id) {
+        findById(id);
+        busLineRepository.deleteById(id);
+    }
+
 }

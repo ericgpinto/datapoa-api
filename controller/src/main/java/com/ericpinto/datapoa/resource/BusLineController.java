@@ -23,25 +23,48 @@ public class BusLineController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("itineraries/callback")
-    public BusLine getItineraryByLine(@RequestParam(value = "p") String id) throws JsonProcessingException {
+    @GetMapping(value = "/{id}")
+    public BusLine findById(@PathVariable String id){
+        return busLineService.findById(id);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "itineraries/callback")
+    public BusLine getLineWithItinerary(@RequestParam(value = "p") String id) throws JsonProcessingException {
         return busLineService.getLineWithItinerary(id);
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("namesearch")
+    @GetMapping(value = "namesearch")
     public List<BusLine> getLineByName(@RequestParam(value = "name") String name){
         return busLineService.getLineByName(name);
     }
 
-//    @ResponseStatus(HttpStatus.OK)
-//    @GetMapping("/radiussearch/{radius}")
-//    public List<BusLine> findLineByLocationNear(
-//            @RequestParam(value = "lgn") Double longitude,
-//            @RequestParam(value = "lat") Double latitude,
-//            @PathVariable Double radius){
-//
-//        return busLineService.findLineByLocationNear(longitude, latitude, radius);
-//    }
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(value = "create")
+    public BusLine createNewBusLine(@RequestBody BusLine busLine){
+        return busLineService.createNewBusLine(busLine);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(value = "delete/{id}")
+    public void delete(@PathVariable String id){
+        busLineService.delete(id);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping(value = "udpate/{id}")
+    public BusLine update(@PathVariable String id, @RequestBody BusLine busLine){
+        return busLineService.update(id, busLine);
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/radiussearch")
+    public List<BusLine> findLineByLocationNear(
+            @RequestParam(value = "lng") Double longitude,
+            @RequestParam(value = "lat") Double latitude,
+            @RequestParam(value = "radius") Double radius){
+
+        return busLineService.findByCoordenatesWithin(longitude, latitude, radius);
+    }
 
 }

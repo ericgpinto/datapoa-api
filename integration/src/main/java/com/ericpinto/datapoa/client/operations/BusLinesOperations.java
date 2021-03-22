@@ -11,12 +11,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.mongodb.core.geo.GeoJsonMultiPoint;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -43,22 +41,19 @@ public class BusLinesOperations {
 
         BeanUtils.copyProperties(busLineItineraryDTO, busLine, "cordinatesDetails");
 
-        busLine.setBusStop(new ArrayList<>());
-
         for (Map.Entry<String, CoordenatesDTO> busStopDetails : busLineItineraryDTO.getCordinatesDetails().entrySet()) {
-            BusStop busStop = new BusStop();
-            busStop.setId(Integer.valueOf(busStopDetails.getKey()));
+            busLine.setIndex(Integer.valueOf(busStopDetails.getKey()));
             Double[] listCoordenates = new Double[2];
             listCoordenates[0] = Double.valueOf(busStopDetails.getValue().getLat());
             listCoordenates[1] = Double.valueOf(busStopDetails.getValue().getLng());
 
-            busStop.setCoordenates(listCoordenates);
-
-            busLine.getBusStop().add(busStop);
-
+            busLine.setCoordenates(listCoordenates);
         }
 
         return busLine;
     }
+
+
+
 
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 
 
 @Data
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class BusStop {
 
     private Integer id;
+//    @GeoSpatialIndexed
     private Double[] coordenates;
 
 }

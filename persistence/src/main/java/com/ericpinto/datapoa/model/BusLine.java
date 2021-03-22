@@ -1,6 +1,7 @@
 package com.ericpinto.datapoa.model;
 
 import com.ericpinto.datapoa.model.dto.BusLineDTO;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -19,22 +22,23 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-
+@JsonIgnoreProperties("index")
 public class BusLine {
 
     @Id
     private String id;
 
-//    @JsonProperty("id")
     private String line;
 
-//    @JsonProperty("codigo")
     private String code;
 
-//    @JsonProperty("nome")
     private String name;
 
-//    @JsonProperty("busStop")
     private List<BusStop> busStop;
+
+    private Integer index;
+
+    @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
+    private Double[] coordenates;
 
 }
