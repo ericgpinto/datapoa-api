@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +55,7 @@ public class BusLineService {
 
     public List<BusLine> findByLocatiosnNear(Double longitude, Double latitude, Double radius){
         Point point = new Point(longitude, latitude);
-        Distance distance = new Distance(radius);
+        Distance distance = new Distance(radius, Metrics.KILOMETERS);
         var response = busLineRepository.findByCoordenatesNear(point, distance);
 
         Optional<List<BusLine>> list = Optional.ofNullable(response);
