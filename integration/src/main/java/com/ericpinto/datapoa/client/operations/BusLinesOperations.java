@@ -5,21 +5,21 @@ import com.ericpinto.datapoa.model.BusLine;
 import com.ericpinto.datapoa.model.dto.BusLineDTO;
 import com.ericpinto.datapoa.model.dto.BusLineItineraryDTO;
 import com.ericpinto.datapoa.model.dto.CoordenatesDTO;
-import com.ericpinto.datapoa.repository.BusLineRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
 public class BusLinesOperations {
 
     private final BusLineClient busLineClient;
-    private final BusLineRepository busLineRepository;
     private final ObjectMapper objectMapper;
 
     public List<BusLineDTO> getAllLines() throws JsonProcessingException {
