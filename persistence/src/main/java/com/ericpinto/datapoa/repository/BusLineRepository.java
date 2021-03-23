@@ -17,10 +17,5 @@ public interface BusLineRepository extends MongoRepository<BusLine, String> {
 
     BusLine findByLine(String line);
 
-//    @Query("{location : {$geoWithin : {$center: [ [point.x, point.y], distance]}}}")
-//    List<BusLine> getBusStopByLocationNear(Point location, Distance distance);
-//
-//    GeoResults<BusLine> findByCoordenatesWithin(Point location, Distance distance);
-
     List<BusLine> findByCoordenatesNear(Point location, Distance distance);
 }

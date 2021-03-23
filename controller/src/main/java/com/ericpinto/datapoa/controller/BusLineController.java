@@ -95,7 +95,7 @@ public class BusLineController {
             @ApiResponse(code = 500, message = "Internal error")
     })
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping(value = "udpate/{id}")
+    @PutMapping(value = "update/{id}")
     public BusLine update(@PathVariable String id, @RequestBody BusLine busLine){
         return busLineService.update(id, busLine);
     }
@@ -113,7 +113,7 @@ public class BusLineController {
             @RequestParam(value = "lat") Double latitude,
             @RequestParam(value = "radius") Double radius){
 
-        return busLineService.findByCoordenatesWithin(longitude, latitude, radius);
+        return busLineService.findByLocatiosnNear(longitude, latitude, radius);
     }
 
 }

@@ -10,10 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Distance;
-import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.index.GeospatialIndex;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +23,6 @@ public class BusLineService {
     private final BusLineRepository busLineRepository;
     private final BusLinesOperations busLinesOperations;
     private final BusLinesMapper busLinesMapper;
-    private final MongoTemplate template;
 
     public List<BusLine> getAllBusLines() throws JsonProcessingException {
         var response = busLinesOperations.getAllLines();
@@ -48,14 +44,27 @@ public class BusLineService {
         throw new ObjectNotFoundException("Linha não encontrada");
     }
 
+    public Page<BusLine> findAll(Pageable pageable) {
+        return busLineRepository.findAll(pageable);
+    }
+
     public List<BusLine> getLineByName(String name) {
         return busLineRepository.findByNameContainingIgnoreCase(name);
     }
 
-    public List<BusLine> findByCoordenatesWithin(Double longitude, Double latitude, Double radius){
+    public List<BusLine> findByLocatiosnNear(Double longitude, Double latitude, Double radius){
         Point point = new Point(longitude, latitude);
-        Distance distance = new Distance(radius, Metrics.KILOMETERS);
-        return busLineRepository.findByCoordenatesNear(point, distance);
+        Distance distance = new Distance(radius);
+        var response = busLineRepository.findByCoordenatesNear(point, distance);
+
+        Optional<List<BusLine>> list = Optional.ofNullable(response);
+
+        if (list.isPresent()) {
+            return response;
+        }
+
+        throw new ObjectNotFoundException("Não foram encontradas linhas de ônibus com os dados informados.");
+
     }
 
     public BusLine createNewBusLine(BusLine busLine) {
@@ -70,10 +79,8 @@ public class BusLineService {
         return busLineRepository.insert(busLine);
     }
 
-//   public BusLine createItineraryToLine(BusLine)
-
     public BusLine update(String id, BusLine busLine) {
-        BusLine obj = findById(id);
+        var obj = findById(id);
 
         obj.setLine(busLine.getLine());
         obj.setCode(busLine.getCode());
@@ -81,10 +88,6 @@ public class BusLineService {
         obj.setCoordenates(busLine.getCoordenates());
 
         return busLineRepository.save(obj);
-    }
-
-    public Page<BusLine> findAll(Pageable pageable) {
-        return busLineRepository.findAll(pageable);
     }
 
     public BusLine findById(String id) {
