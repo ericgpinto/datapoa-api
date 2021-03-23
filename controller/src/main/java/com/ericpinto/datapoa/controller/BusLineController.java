@@ -2,7 +2,6 @@ package com.ericpinto.datapoa.controller;
 
 import com.ericpinto.datapoa.model.BusLine;
 import com.ericpinto.datapoa.service.BusLineService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -27,7 +26,7 @@ public class BusLineController {
     @GetMapping()
     @ApiOperation("Busca por todas as linhas de õnibus armazenadas no banco")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Returns create"),
+            @ApiResponse(code = 200, message = "Returns create"),
             @ApiResponse(code = 401, message = "Unauthorized"),
             @ApiResponse(code = 500, message = "Internal error")
     })
@@ -40,10 +39,10 @@ public class BusLineController {
         return busLineService.findAll(pageable);
     }
 
-    @ApiOperation("Retorna a linha DE ônibus de acordo com o id informado")
+    @ApiOperation("Retorna a linha de ônibus de acordo com o id informado")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Returns create"),
-            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 404, message = "Not found"),
             @ApiResponse(code = 500, message = "Internal error")
     })
     @ResponseStatus(HttpStatus.OK)

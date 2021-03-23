@@ -2,7 +2,6 @@ package com.ericpinto.datapoa.client.operations;
 
 import com.ericpinto.datapoa.client.BusLineClient;
 import com.ericpinto.datapoa.model.BusLine;
-import com.ericpinto.datapoa.model.BusStop;
 import com.ericpinto.datapoa.model.dto.BusLineDTO;
 import com.ericpinto.datapoa.model.dto.BusLineItineraryDTO;
 import com.ericpinto.datapoa.model.dto.CoordenatesDTO;
@@ -11,7 +10,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.mongodb.core.geo.GeoJsonMultiPoint;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
