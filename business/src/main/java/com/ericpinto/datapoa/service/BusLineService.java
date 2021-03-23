@@ -53,8 +53,8 @@ public class BusLineService {
         return busLineRepository.findByNameContainingIgnoreCase(name);
     }
 
-    public List<BusLine> findByLocatiosnNear(Double longitude, Double latitude, Double radius){
-        Point point = new Point(longitude, latitude);
+    public List<BusLine> findByLocatiosnNear( Double latitude, Double longitude, Double radius){
+        Point point = new Point(latitude, longitude);
         Distance distance = new Distance(radius, Metrics.KILOMETERS);
         var response = busLineRepository.findByCoordenatesNear(point, distance);
 

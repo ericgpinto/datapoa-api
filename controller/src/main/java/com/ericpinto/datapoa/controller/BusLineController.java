@@ -110,11 +110,11 @@ public class BusLineController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/radiussearch")
     public List<BusLine> findLineByLocationNear(
-            @RequestParam(value = "lng") Double longitude,
-            @RequestParam(value = "lat") Double latitude,
+            @RequestParam(value = "lat") Double longitude,
+            @RequestParam(value = "lng") Double latitude,
             @RequestParam(value = "radius") Double radius){
 
-        return busLineService.findByLocatiosnNear(longitude, latitude, radius);
+        return busLineService.findByLocatiosnNear(latitude, longitude, radius);
     }
 
 }
