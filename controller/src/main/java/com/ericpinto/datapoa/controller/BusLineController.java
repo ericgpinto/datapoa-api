@@ -1,5 +1,6 @@
 package com.ericpinto.datapoa.controller;
 
+import com.ericpinto.datapoa.controller.util.URL;
 import com.ericpinto.datapoa.model.BusLine;
 import com.ericpinto.datapoa.service.BusLineService;
 import io.swagger.annotations.ApiOperation;
@@ -60,6 +61,7 @@ public class BusLineController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "namesearch")
     public List<BusLine> getLineByName(@RequestParam(value = "name") String name){
+        name = URL.decodeParam(name);
         return busLineService.getLineByName(name);
     }
 
