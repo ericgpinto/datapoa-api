@@ -7,6 +7,8 @@ import com.ericpinto.datapoa.service.exceptions.ObjectNotFoundException;
 import com.ericpinto.datapoa.service.mapper.BusLinesMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
@@ -33,7 +35,7 @@ public class BusLineService {
         if (busLineRepository.count() == 0) {
             return busLineRepository.saveAll(mapper);
         } else
-            return this.findAll();
+            return mapper;
     }
 
     public BusLine getLineWithItinerary(String id) throws JsonProcessingException {
@@ -68,7 +70,7 @@ public class BusLineService {
         return busLineRepository.insert(busLine);
     }
 
-//    public BusLine createItineraryToLine(BusLine)
+//   public BusLine createItineraryToLine(BusLine)
 
     public BusLine update(String id, BusLine busLine) {
         BusLine obj = findById(id);
@@ -76,15 +78,13 @@ public class BusLineService {
         obj.setLine(busLine.getLine());
         obj.setCode(busLine.getCode());
         obj.setName(busLine.getName());
-        obj.setIndex(busLine.getIndex());
         obj.setCoordenates(busLine.getCoordenates());
-        obj.setBusStop(busLine.getBusStop());
 
         return busLineRepository.save(obj);
     }
 
-    public List<BusLine> findAll() {
-        return busLineRepository.findAll();
+    public Page<BusLine> findAll(Pageable pageable) {
+        return busLineRepository.findAll(pageable);
     }
 
     public BusLine findById(String id) {

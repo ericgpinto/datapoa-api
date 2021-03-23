@@ -1,4 +1,4 @@
-package com.ericpinto.datapoa.resource.util;
+package com.ericpinto.datapoa.controller.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

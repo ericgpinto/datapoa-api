@@ -4,6 +4,7 @@ import com.ericpinto.datapoa.model.dto.BusLineDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,18 +27,22 @@ import java.util.List;
 public class BusLine {
 
     @Id
+    @ApiModelProperty(value = "Id unico")
     private String id;
 
+    @ApiModelProperty(value = "Id da linha de ônibus")
     private String line;
 
+    @ApiModelProperty(value = "Código da linha de ônibus")
     private String code;
 
+    @ApiModelProperty(value = "Nome da linha de ônibus")
     private String name;
 
-    private List<BusStop> busStop;
-
+    @ApiModelProperty(value = "Index da coordenada")
     private Integer index;
 
+    @ApiModelProperty(value = "Itinerário da linha de ônibus")
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     private Double[] coordenates;
 

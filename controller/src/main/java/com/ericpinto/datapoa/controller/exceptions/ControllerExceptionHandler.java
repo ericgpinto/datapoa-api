@@ -1,4 +1,4 @@
-package com.ericpinto.datapoa.resource.exceptions;
+package com.ericpinto.datapoa.controller.exceptions;
 
 import com.ericpinto.datapoa.service.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;

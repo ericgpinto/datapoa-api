@@ -1,4 +1,4 @@
-package com.ericpinto.datapoa.resource.exceptions;
+package com.ericpinto.datapoa.controller.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
