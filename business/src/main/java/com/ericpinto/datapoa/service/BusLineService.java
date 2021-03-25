@@ -56,7 +56,7 @@ public class BusLineService {
     public List<BusLine> findByLocatiosnNear( Double latitude, Double longitude, Double radius){
         Point point = new Point(latitude, longitude);
         Distance distance = new Distance(radius, Metrics.KILOMETERS);
-        var response = busLineRepository.findByCoordenatesNear(point, distance);
+        var response = busLineRepository.findByBusStopListNear(point, distance);
 
         Optional<List<BusLine>> list = Optional.ofNullable(response);
 
@@ -86,7 +86,7 @@ public class BusLineService {
         obj.setLine(busLine.getLine());
         obj.setCode(busLine.getCode());
         obj.setName(busLine.getName());
-        obj.setCoordenates(busLine.getCoordenates());
+        obj.setBusStopList(busLine.getBusStopList());
 
         return busLineRepository.save(obj);
     }

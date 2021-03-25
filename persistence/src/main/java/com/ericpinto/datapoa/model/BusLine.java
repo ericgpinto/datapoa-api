@@ -44,6 +44,6 @@ public class BusLine {
 
     @ApiModelProperty(value = "Itinerário da linha de ônibus")
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
-    private Double[] coordenates;
+    private List<BusStop> busStopList;
 
 }

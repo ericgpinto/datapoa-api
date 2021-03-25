@@ -15,5 +15,5 @@ public interface BusLineRepository extends MongoRepository<BusLine, String> {
 
     BusLine findByLine(String line);
 
-    List<BusLine> findByCoordenatesNear(Point location, Distance distance);
+    List<BusLine> findByBusStopListNear(Point location, Distance distance);
 }
