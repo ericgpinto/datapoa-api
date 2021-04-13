@@ -23,7 +23,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties("index")
 public class BusLine {
 
     @Id
@@ -39,11 +38,7 @@ public class BusLine {
     @ApiModelProperty(value = "Nome da linha de ônibus")
     private String name;
 
-    @ApiModelProperty(value = "Index da coordenada")
-    private Integer index;
-
-    @ApiModelProperty(value = "Itinerário da linha de ônibus")
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
-    private List<BusStop> busStopList;
+    private List<Double[]> coordenates;
 
 }

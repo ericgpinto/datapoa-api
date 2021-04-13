@@ -2,7 +2,6 @@ package com.ericpinto.datapoa.client.operations;
 
 import com.ericpinto.datapoa.client.BusLineClient;
 import com.ericpinto.datapoa.model.BusLine;
-import com.ericpinto.datapoa.model.BusStop;
 import com.ericpinto.datapoa.model.dto.BusLineDTO;
 import com.ericpinto.datapoa.model.dto.BusLineItineraryDTO;
 import com.ericpinto.datapoa.model.dto.CoordenatesDTO;
@@ -33,47 +32,31 @@ public class BusLinesOperations {
         return manipulateCoordenates(busLineDTO);
     }
 
-//    public BusLine populateCoordenates(BusLineItineraryDTO busLineItineraryDTO){
-//        BusLine busLine = new BusLine();
-//
-//        BeanUtils.copyProperties(busLineItineraryDTO, busLine, "cordinatesDetails");
-//
-//        for (Map.Entry<String, CoordenatesDTO> busStopDetails : busLineItineraryDTO.getCordinatesDetails().entrySet()) {
-//            busLine.setIndex(Integer.valueOf(busStopDetails.getKey()));
-//            Double[] listCoordenates = new Double[2];
-//            listCoordenates[0] = Double.valueOf(busStopDetails.getValue().getLat());
-//            listCoordenates[1] = Double.valueOf(busStopDetails.getValue().getLng());
-//
-//            busLine.setCoordenates(listCoordenates);
-//        }
-//
-//        return busLine;
-//    }
 
-    public BusLine manipulateCoordenates(BusLineItineraryDTO busLineItineraryDTO){
+    public BusLine manipulateCoordenates(BusLineItineraryDTO busLineItineraryDTO) {
 
         BusLine busLine = new BusLine();
 
         BeanUtils.copyProperties(busLineItineraryDTO, busLine, "cordinatesDetails");
 
-        busLine.setBusStopList(new ArrayList<>());
+        //busLine.setBusStops(new ArrayList<>());
+        busLine.setCoordenates(new ArrayList<>());
 
         for (Map.Entry<String, CoordenatesDTO> busStopDetails : busLineItineraryDTO.getCordinatesDetails().entrySet()) {
-            BusStop busStop = new BusStop();
+            BusLine bl = new BusLine();
             Double[] newDouble = new Double[2];
             newDouble[0] = Double.valueOf(busStopDetails.getValue().getLat());
             newDouble[1] = Double.valueOf(busStopDetails.getValue().getLng());
 
-            busStop.setCoordenates(newDouble);
+            //busStop.setCoordenates(newDouble);
+            bl.setCoordenates(Collections.singletonList(newDouble));
 
-            busLine.getBusStopList().add(busStop);
+            //busLine.getBusStops().add(bl);
+            busLine.getCoordenates().add(newDouble);
         }
 
         return busLine;
 
     }
-
-
-
 
 }

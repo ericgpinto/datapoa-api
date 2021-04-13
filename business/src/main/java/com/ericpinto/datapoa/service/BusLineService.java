@@ -9,9 +9,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.geo.Distance;
-import org.springframework.data.geo.Metrics;
-import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,21 +50,6 @@ public class BusLineService {
         return busLineRepository.findByNameContainingIgnoreCase(name);
     }
 
-    public List<BusLine> findByLocatiosnNear( Double latitude, Double longitude, Double radius){
-        Point point = new Point(latitude, longitude);
-        Distance distance = new Distance(radius, Metrics.KILOMETERS);
-        var response = busLineRepository.findByBusStopListNear(point, distance);
-
-        Optional<List<BusLine>> list = Optional.ofNullable(response);
-
-        if (list.isPresent()) {
-            return response;
-        }
-
-        throw new ObjectNotFoundException("Não foram encontradas linhas de ônibus com os dados informados.");
-
-    }
-
     public BusLine createNewBusLine(BusLine busLine) {
         var find = busLineRepository.findByLine(busLine.getLine());
 
@@ -86,7 +68,8 @@ public class BusLineService {
         obj.setLine(busLine.getLine());
         obj.setCode(busLine.getCode());
         obj.setName(busLine.getName());
-        obj.setBusStopList(busLine.getBusStopList());
+        obj.setCoordenates(busLine.getCoordenates());
+//        obj.setBusStops(busLine.getBusStops());
 
         return busLineRepository.save(obj);
     }
