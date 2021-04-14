@@ -39,7 +39,6 @@ public class BusLinesOperations {
 
         BeanUtils.copyProperties(busLineItineraryDTO, busLine, "cordinatesDetails");
 
-        //busLine.setBusStops(new ArrayList<>());
         busLine.setCoordenates(new ArrayList<>());
 
         for (Map.Entry<String, CoordenatesDTO> busStopDetails : busLineItineraryDTO.getCordinatesDetails().entrySet()) {
@@ -48,10 +47,8 @@ public class BusLinesOperations {
             newDouble[0] = Double.valueOf(busStopDetails.getValue().getLat());
             newDouble[1] = Double.valueOf(busStopDetails.getValue().getLng());
 
-            //busStop.setCoordenates(newDouble);
             bl.setCoordenates(Collections.singletonList(newDouble));
 
-            //busLine.getBusStops().add(bl);
             busLine.getCoordenates().add(newDouble);
         }
 

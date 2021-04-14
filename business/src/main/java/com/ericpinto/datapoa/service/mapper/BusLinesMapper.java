@@ -1,6 +1,7 @@
 package com.ericpinto.datapoa.service.mapper;
 
 import com.ericpinto.datapoa.model.BusLine;
+import com.ericpinto.datapoa.model.NearbyBusLineResponse;
 import com.ericpinto.datapoa.model.dto.BusLineDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,16 @@ public class BusLinesMapper {
                 .code(l.getCode())
                 .name(l.getName()).build()));
         return lineList;
+    }
+
+    public List<NearbyBusLineResponse> mapToResponse(List<BusLine> busLines){
+        List<NearbyBusLineResponse> nearbyBusLineResponseList = new ArrayList<>();
+        busLines.forEach(l -> nearbyBusLineResponseList.add(NearbyBusLineResponse.builder()
+                .id(l.getId())
+                .line(l.getLine())
+                .code(l.getCode())
+                .name(l.getName()).build()));
+        return nearbyBusLineResponseList;
     }
 
 }

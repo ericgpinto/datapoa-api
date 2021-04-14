@@ -35,12 +35,9 @@ public class BusLineIntegrationService {
         var find = busLineRepository.findByLine(id);
         Optional<BusLine> lineOptional = Optional.ofNullable(find);
 
-        
-
         if (lineOptional.isPresent()) {
-            //response.setBusStops(find.getBusStops());
             response.setCoordenates(find.getCoordenates());
-//
+
             return busLineService.update(find.getId(), response);
         }
         throw new ObjectNotFoundException("Linha não encontrada");

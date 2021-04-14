@@ -2,8 +2,9 @@ package com.ericpinto.datapoa.controller;
 
 import com.ericpinto.datapoa.controller.util.URL;
 import com.ericpinto.datapoa.model.BusLine;
+import com.ericpinto.datapoa.model.NearbyBusLineResponse;
 import com.ericpinto.datapoa.service.BusLineService;
-import com.ericpinto.datapoa.service.NearLocationService;
+import com.ericpinto.datapoa.service.NearByBusLineService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -23,7 +24,7 @@ import java.util.List;
 public class BusLineController {
 
     private final BusLineService busLineService;
-    private final NearLocationService nearLocationService;
+    private final NearByBusLineService nearLocationService;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping()
@@ -103,15 +104,15 @@ public class BusLineController {
         return busLineService.update(id, busLine);
     }
 
-//    @ApiOperation("Busca todas as linhas de ônibus dentro das coordenadas e do raio informado")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 201, message = "Returns create"),
-//            @ApiResponse(code = 401, message = "Unauthorized"),
-//            @ApiResponse(code = 500, message = "Internal error")
-//    })
+    @ApiOperation("Busca todas as linhas de ônibus dentro das coordenadas e do raio informado")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Returns create"),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 500, message = "Internal error")
+    })
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/radiussearch")
-    public List<BusLine> findLineByLocationNear(
+    @GetMapping("/nearby-busline-search")
+    public List<NearbyBusLineResponse> findLineByLocationNear(
             @RequestParam(value = "lat") Double longitude,
             @RequestParam(value = "lng") Double latitude,
             @RequestParam(value = "radius") Double radius){
