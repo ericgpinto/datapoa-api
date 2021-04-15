@@ -2,9 +2,9 @@ package com.ericpinto.datapoa.controller;
 
 import com.ericpinto.datapoa.controller.util.URL;
 import com.ericpinto.datapoa.model.BusLine;
-import com.ericpinto.datapoa.model.NearbyBusLineResponse;
+import com.ericpinto.datapoa.model.BusLineCustomizedResponse;
 import com.ericpinto.datapoa.service.BusLineService;
-import com.ericpinto.datapoa.service.NearByBusLineService;
+import com.ericpinto.datapoa.service.NearbyBusLineService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -24,7 +24,7 @@ import java.util.List;
 public class BusLineController {
 
     private final BusLineService busLineService;
-    private final NearByBusLineService nearLocationService;
+    private final NearbyBusLineService nearLocationService;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping()
@@ -112,7 +112,7 @@ public class BusLineController {
     })
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/nearby-busline-search")
-    public List<NearbyBusLineResponse> findLineByLocationNear(
+    public List<BusLineCustomizedResponse> findLineByLocationNear(
             @RequestParam(value = "lat") Double longitude,
             @RequestParam(value = "lng") Double latitude,
             @RequestParam(value = "radius") Double radius){

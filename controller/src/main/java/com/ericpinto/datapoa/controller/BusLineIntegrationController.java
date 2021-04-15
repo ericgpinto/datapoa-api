@@ -1,6 +1,7 @@
 package com.ericpinto.datapoa.controller;
 
 import com.ericpinto.datapoa.model.BusLine;
+import com.ericpinto.datapoa.service.BusLineIntegrationService;
 import com.ericpinto.datapoa.service.BusLineService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class BusLineIntegrationController {
 
-    private final BusLineService busLineService;
+    private final BusLineIntegrationService busLineIntegrationServiceService;
 
     @ApiOperation("Consome a API datapoa e retorna todas as linhas de ônibus")
     @ApiResponses(value = {
@@ -28,7 +29,7 @@ public class BusLineIntegrationController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/buslines")
     public List<BusLine> getAllLines() throws JsonProcessingException {
-        return busLineService.getAllBusLines();
+        return busLineIntegrationServiceService.getAllBusLines();
     }
 
     @ApiOperation("Consome a API datapoa e retorna o itinerário da linha informada")
@@ -40,6 +41,6 @@ public class BusLineIntegrationController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/itineraries")
     public BusLine getLineWithItinerary(@RequestParam(value = "p") String id) throws JsonProcessingException {
-        return busLineService.getLineWithItinerary(id);
+        return busLineIntegrationServiceService.getLineWithItinerary(id);
     }
 }

@@ -1,6 +1,6 @@
 package com.ericpinto.datapoa.service;
 
-import com.ericpinto.datapoa.model.NearbyBusLineResponse;
+import com.ericpinto.datapoa.model.BusLineCustomizedResponse;
 import com.ericpinto.datapoa.repository.BusLineRepository;
 import com.ericpinto.datapoa.service.exceptions.ObjectNotFoundException;
 import com.ericpinto.datapoa.service.mapper.BusLinesMapper;
@@ -14,12 +14,12 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class NearByBusLineService {
+public class NearbyBusLineService {
 
     private final BusLinesMapper busLinesMapper;
     private final BusLineRepository busLineRepository;
 
-    public List<NearbyBusLineResponse> findByBusStopsNear(Double lat, Double lng, Double radius){
+    public List<BusLineCustomizedResponse> findByBusStopsNear(Double lat, Double lng, Double radius){
 
         Point point = new Point(lat, lng);
         Distance distance = new Distance(radius, Metrics.KILOMETERS);

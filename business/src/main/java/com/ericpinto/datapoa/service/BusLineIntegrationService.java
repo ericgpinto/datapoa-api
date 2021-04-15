@@ -30,16 +30,14 @@ public class BusLineIntegrationService {
             return mapper;
     }
 
-    public BusLine getItineraryByLine(String id) throws JsonProcessingException {
+    public BusLine getLineWithItinerary(String id) throws JsonProcessingException {
         var response = busLinesOperations.getLineWithItinerary(id);
         var find = busLineRepository.findByLine(id);
         Optional<BusLine> lineOptional = Optional.ofNullable(find);
 
-        if (lineOptional.isPresent()) {
-            response.setCoordenates(find.getCoordenates());
-
+        if (lineOptional.isPresent())
             return busLineService.update(find.getId(), response);
-        }
         throw new ObjectNotFoundException("Linha não encontrada");
     }
+
 }

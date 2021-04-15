@@ -1,11 +1,8 @@
 package com.ericpinto.datapoa.service;
 
-import com.ericpinto.datapoa.client.operations.BusLinesOperations;
 import com.ericpinto.datapoa.model.BusLine;
 import com.ericpinto.datapoa.repository.BusLineRepository;
 import com.ericpinto.datapoa.service.exceptions.ObjectNotFoundException;
-import com.ericpinto.datapoa.service.mapper.BusLinesMapper;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,28 +16,6 @@ import java.util.Optional;
 public class BusLineService {
 
     private final BusLineRepository busLineRepository;
-    private final BusLinesOperations busLinesOperations;
-    private final BusLinesMapper busLinesMapper;
-
-    public List<BusLine> getAllBusLines() throws JsonProcessingException {
-        var response = busLinesOperations.getAllLines();
-        var mapper = busLinesMapper.maptoBusLine(response);
-
-        if (busLineRepository.count() == 0) {
-            return busLineRepository.saveAll(mapper);
-        } else
-            return mapper;
-    }
-
-    public BusLine getLineWithItinerary(String id) throws JsonProcessingException {
-        var response = busLinesOperations.getLineWithItinerary(id);
-        var find = busLineRepository.findByLine(id);
-        Optional<BusLine> lineOptional = Optional.ofNullable(find);
-
-        if (lineOptional.isPresent())
-            return update(find.getId(), response);
-        throw new ObjectNotFoundException("Linha não encontrada");
-    }
 
     public Page<BusLine> findAll(Pageable pageable) {
         return busLineRepository.findAll(pageable);
@@ -69,7 +44,6 @@ public class BusLineService {
         obj.setCode(busLine.getCode());
         obj.setName(busLine.getName());
         obj.setCoordenates(busLine.getCoordenates());
-//        obj.setBusStops(busLine.getBusStops());
 
         return busLineRepository.save(obj);
     }

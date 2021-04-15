@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class NearbyBusLineResponse {
+public class BusLineCustomizedResponse {
 
     @JsonProperty("id")
     private String id;
